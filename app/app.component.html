@@ -1,0 +1,140 @@
+<h3>Transportation
+	<button type="button" (click)="openModal(add)"> Click Here to add Transportation Fields</button>
+</h3>
+<br>
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+	<div formArrayName="rows">
+		<table>
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Pick Up Area</th>
+					<th>Pick Up Time</th>
+					<th>Sign Board</th>
+          <th *ngIf="extraColumnsFormGroup.get('driver').value">driver</th>
+					<th *ngIf="extraColumnsFormGroup.get('contact_number').value">contact number</th>
+					<th *ngIf="extraColumnsFormGroup.get('transportation_unit').value">transportation unit</th>
+					<th *ngIf="extraColumnsFormGroup.get('special_instructions').value">special instructions</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let row of addForm.controls.rows.controls; let i = index" [formGroupName]="i">
+					<td>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<textarea class="form-control" formControlName="description"></textarea>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<input type="text" class="form-control" formControlName="pickup_area">
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<input type="text" class="form-control" formControlName="pickup_time">
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<input type="text" class="form-control" formControlName="sign_board">
+							</div>
+						</div>
+					</td>
+          <!-- + -->
+          <td *ngIf="extraColumnsFormGroup.get('driver').value" >
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<input type="text" class="form-control" formControlName="driver">
+							</div>
+						</div>
+					</td>
+
+          <td *ngIf="extraColumnsFormGroup.get('contact_number').value">
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<input type="text" class="form-control"  formControlName="contact_number">
+							</div>
+						</div>
+					</td>
+
+          <td *ngIf="extraColumnsFormGroup.get('transportation_unit').value">
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<input type="text" class="form-control"  formControlName="transportation_unit">
+							</div>
+						</div>
+					</td>
+
+          <td *ngIf="extraColumnsFormGroup.get('special_instructions').value">
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<input type="text" class="form-control"  formControlName="special_instructions">
+							</div>
+						</div>
+					</td>
+          <!-- + -->
+					<td>
+						<button type="button" class="btn btn-square btn-danger btn-sm waves-effect waves-light" (click)="onDeleteRow(i)"> <i class="icofont icofont-ui-delete"></i> Remove</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="button" (click)="initGroup()"> Add Row</button>
+    <br>
+    <br>
+    <button type="submit" [disabled]="addForm.invalid">Submit</button>
+	</div>
+</form>
+
+
+
+<ng-template #add>
+	<div role="dialog" aria-hidden="true">
+		<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+		<div class="login-card-modal">
+			<form class="md-float-material" [formGroup]="extraColumnsFormGroup">
+				<div class="auth-box">
+					<div class="row m-b-0">
+						<div class="col-md-12">
+							<h3 class="text-center">Add Fields</h3>
+						</div>
+						<div class="form-group row">
+							Driver
+							<div class="col-sm-12">
+								<input type="checkbox" class="form-control" formControlName="driver">
+							</div>
+						</div>
+						<div class="form-group row">
+							Contact number
+							<div class="col-sm-12">
+								<input type="checkbox" class="form-control" formControlName="contact_number">
+							</div>
+						</div>
+						<div class="form-group row">
+							Transportation Unit
+							<div class="col-sm-12">
+								<input type="checkbox" class="form-control" formControlName="transportation_unit">
+							</div>
+						</div>
+						<div class="form-group row">
+							Special Instructions
+							<div class="col-sm-12">
+								<input type="checkbox" class="form-control" formControlName="special_instructions">
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</ng-template>
